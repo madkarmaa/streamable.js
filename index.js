@@ -1,4 +1,5 @@
-const axios = require('axios');
+const axios = require('axios').default;
+const { URL } = require('node:url');
 
 const BASE_URL = 'https://api-f.streamable.com/api/v1';
 
@@ -6,10 +7,14 @@ const endpoints = {
     LOGIN: 'https://ajax.streamable.com/check',
     ME: BASE_URL + '/me',
     SUBSCRIPTION_INFO: BASE_URL + '/me/subscription/info',
-    /**
-     * @param {number} fileSize The size of the video file
-     * @returns {String} The API endpoint
-     */
+    LABELS: BASE_URL + '/labels',
+    EXTRACT: function (encodedUrl) {
+        return BASE_URL + '/extract?url=' + encodedUrl;
+    },
+    UPLOAD_FROM_URL: BASE_URL + '/uploads/videos',
+    TRANSCODE_FROM_URL: function (videoId) {
+        return BASE_URL + '/transcode/' + videoId;
+    },
     INIT_UPLOAD_VIDEO: function (fileSize) {
         return BASE_URL + '/uploads/shortcode?size=' + fileSize + '&version=unknown';
     },
@@ -69,6 +74,51 @@ class StreamableClient {
 
         return (await axios.get(endpoints.ME, { headers: this.#headers })).data;
     }
+
+    /**
+     * Upload a video from a given url
+     * @param {(URL | String)} url The url of the video file to upload
+     */
+    async uploadVideoFromURL(url) {
+        if (!(url instanceof URL)) url = new URL(url);
+
+        const extractedVideoData = (await axios.get(endpoints.EXTRACT(url.href), { headers: this.#headers })).data;
+
+        if (!extractedVideoData) return console.error('Could not extract video data!');
+
+        const uploadedVideoData = (
+            await axios.post(
+                endpoints.UPLOAD_FROM_URL,
+                {
+                    extract_id: extractedVideoData.id,
+                    extractor: extractedVideoData.extractor,
+                    source: extractedVideoData.source_url,
+                    status: 1,
+                    title: extractedVideoData.id,
+                    upload_source: 'clip',
+                },
+                { headers: this.#headers }
+            )
+        ).data;
+
+        return (
+            await axios.post(
+                endpoints.TRANSCODE_FROM_URL(uploadedVideoData.extract_id),
+                {
+                    extractor: extractedVideoData.extractor,
+                    headers: extractedVideoData.headers,
+                    // length: // TODO: video length ???
+                    mute: false,
+                    shortcode: uploadedVideoData.shortcode,
+                    thumb_offset: null,
+                    title: uploadedVideoData.title,
+                    upload_source: uploadedVideoData.upload_source,
+                    url: uploadedVideoData.source_url,
+                },
+                { headers: this.#headers }
+            )
+        ).data;
+    }
 }
 
-module.exports = { StreamableClient };
+module.exports = StreamableClient;
