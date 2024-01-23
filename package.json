@@ -2,9 +2,9 @@
     "name": "streamable",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "npx webpack"
     },
     "keywords": [],
     "author": "",
@@ -12,5 +12,9 @@
     "dependencies": {
         "axios": "^1.6.5"
     },
-    "type": "module"
+    "devDependencies": {
+        "terser-webpack-plugin": "^5.3.10",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.4"
+    }
 }

@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 
 const BASE_URL = 'https://api-f.streamable.com/api/v1';
 
@@ -8,9 +8,9 @@ const endpoints = {
     SUBSCRIPTION_INFO: BASE_URL + '/me/subscription/info',
     /**
      * @param {number} fileSize The size of the video file
-     * @returns
+     * @returns {String} The API endpoint
      */
-    UPLOAD_VIDEO: function (fileSize) {
+    INIT_UPLOAD_VIDEO: function (fileSize) {
         return BASE_URL + '/uploads/shortcode?size=' + fileSize + '&version=unknown';
     },
 };
@@ -71,4 +71,4 @@ class StreamableClient {
     }
 }
 
-export { StreamableClient };
+module.exports = { StreamableClient };
