@@ -1,6 +1,7 @@
 const axios = require('axios').default;
 const { URL } = require('node:url');
 const { getVideoDurationInSeconds } = require('get-video-duration');
+const convert = require('convert-units');
 
 axios.interceptors.response.use(
     function (response) {
@@ -32,6 +33,7 @@ const endpoints = {
     INIT_UPLOAD_VIDEO: function (fileSize) {
         return BASE_URL + '/uploads/shortcode?size=' + fileSize + '&version=unknown';
     },
+    VIDEOS: BASE_URL + '/videos?sort=date_added',
 };
 
 /**
@@ -60,6 +62,7 @@ class StreamableClient {
      * ===== MUST BE THE CALLED BEFORE ANYTHING ELSE =====
      * @param {String} usernameOrEmail The username or email of the user
      * @param {String} password The password of the user
+     * @returns {Promise<void>}
      */
     async login(usernameOrEmail, password) {
         this.#username = usernameOrEmail;
@@ -85,12 +88,50 @@ class StreamableClient {
 
     /**
      * Get the currently logged in user's data
-     * @returns
+     * @returns {Promise<object>} The user's data
      */
     async getCurrentUserData() {
         if (!this.#loggedIn) return console.error('You must be logged in!');
 
         return (await axios.get(endpoints.ME, { headers: this.#headers })).data;
+    }
+
+    /**
+     * Get the current user's plan's data
+     * @returns {Promise<object>} The user's current plan's data
+     */
+    async getCurrentPlanData() {
+        return (await axios.get(endpoints.SUBSCRIPTION_INFO, { headers: this.#headers })).data;
+    }
+
+    /**
+     * Get the current user's videos data
+     * @returns {Promise<object[]>} The current user's videos data
+     */
+    async getVideosData() {
+        return Array.from((await axios.get(endpoints.VIDEOS, { headers: this.#headers })).data.videos);
+    }
+
+    /**
+     * Check if the user has reached the current plan's upload limits
+     * @returns {Promise<boolean>}
+     */
+    async hasReachedUploadLimits() {
+        const {
+            limits: {
+                storage: { exceeded },
+            },
+        } = await this.getCurrentPlanData();
+
+        const { plan_max_length, plan_max_size } = await this.getCurrentUserData();
+
+        const totalVideosSeconds = (await this.getVideosData()).reduce((total, v) => total + v.duration, 0);
+        const totalVideosSize = (await this.getVideosData()).reduce(
+            (total, v) => total + convert(v.size).from('b').to('Gb'),
+            0
+        );
+
+        return exceeded || totalVideosSeconds > plan_max_length || totalVideosSize > plan_max_size;
     }
 
     /**
