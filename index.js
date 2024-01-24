@@ -1,5 +1,19 @@
 const axios = require('axios').default;
 const { URL } = require('node:url');
+const { getVideoDurationInSeconds } = require('get-video-duration');
+
+axios.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        return Promise.reject({
+            data: error.response.data,
+            status: error.response.status,
+            headers: error.response.headers,
+        });
+    }
+);
 
 const BASE_URL = 'https://api-f.streamable.com/api/v1';
 
@@ -69,6 +83,10 @@ class StreamableClient {
         this.#loggedIn = true;
     }
 
+    /**
+     * Get the currently logged in user's data
+     * @returns
+     */
     async getCurrentUserData() {
         if (!this.#loggedIn) return console.error('You must be logged in!');
 
@@ -80,10 +98,10 @@ class StreamableClient {
      * @param {(URL | String)} url The url of the video file to upload
      */
     async uploadVideoFromURL(url) {
+        if (!this.#loggedIn) return console.error('You must be logged in!');
         if (!(url instanceof URL)) url = new URL(url);
 
         const extractedVideoData = (await axios.get(endpoints.EXTRACT(url.href), { headers: this.#headers })).data;
-
         if (!extractedVideoData) return console.error('Could not extract video data!');
 
         const uploadedVideoData = (
@@ -100,14 +118,18 @@ class StreamableClient {
                 { headers: this.#headers }
             )
         ).data;
+        if (!uploadedVideoData) return console.error('Could not upload video data!');
+
+        const videoDuration = await getVideoDurationInSeconds(url.href);
+        if (typeof videoDuration !== 'number') return console.error('Could not get video duration!');
 
         return (
             await axios.post(
-                endpoints.TRANSCODE_FROM_URL(uploadedVideoData.extract_id),
+                endpoints.TRANSCODE_FROM_URL(uploadedVideoData.shortcode),
                 {
                     extractor: extractedVideoData.extractor,
                     headers: extractedVideoData.headers,
-                    // length: // TODO: video length ???
+                    length: videoDuration,
                     mute: false,
                     shortcode: uploadedVideoData.shortcode,
                     thumb_offset: null,
@@ -115,7 +137,9 @@ class StreamableClient {
                     upload_source: uploadedVideoData.upload_source,
                     url: uploadedVideoData.source_url,
                 },
-                { headers: this.#headers }
+                {
+                    headers: this.#headers,
+                }
             )
         ).data;
     }
