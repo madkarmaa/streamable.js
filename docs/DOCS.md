@@ -12,7 +12,7 @@ Client to interact with the `streamable.com` APInon-email+password authenticat
     * [.getPlanData()](#StreamableClient+getPlanData) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.getVideosData()](#StreamableClient+getVideosData) ⇒ <code>Promise.&lt;Array.&lt;object&gt;&gt;</code>
     * [.hasReachedUploadLimits()](#StreamableClient+hasReachedUploadLimits) ⇒ <code>Promise.&lt;boolean&gt;</code>
-    * [.uploadVideoFromURL(url)](#StreamableClient+uploadVideoFromURL)
+    * [.uploadVideoFromURL(url)](#StreamableClient+uploadVideoFromURL) ⇒ <code>Promise.&lt;object&gt;</code>
 
 <a name="StreamableClient+login"></a>
 
@@ -61,10 +61,11 @@ Check if the user has reached the current plan's upload limits
 **Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
 <a name="StreamableClient+uploadVideoFromURL"></a>
 
-### streamableClient.uploadVideoFromURL(url)
+### streamableClient.uploadVideoFromURL(url) ⇒ <code>Promise.&lt;object&gt;</code>
 Upload a video from a given url
 
 **Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
+**Returns**: <code>Promise.&lt;object&gt;</code> - The uploaded video's data  
 
 | Param | Type | Description |
 | --- | --- | --- |
