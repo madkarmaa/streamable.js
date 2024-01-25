@@ -11,7 +11,7 @@
 
 > [!CAUTION]
 >
-> The use of this library breaks the Streamable's **[Terms of Service](https://terms.streamable.com)**, specifically in [this line](https://terms.streamable.com/#:~:text=Use%20automated,Content), so use it at your own risk.
+> The use of this library is against the Streamable's **[Terms of Service](https://terms.streamable.com)**, specifically in [this line](https://terms.streamable.com/#:~:text=Use%20automated,Content), so use it at your own risk.
 
 ## ⚙️ Installation
 
