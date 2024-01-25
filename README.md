@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./images/logo.png" alt="logo" style="width: auto; height: 85px"><br><br><img src="https://img.shields.io/static/v1?logo=nodedotjs&label=&message=NodeJS&color=43853D&logoColor=ffffff&style=flat-square" alt="nodejs">&nbsp;<span>client to interact with the <a href="https://streamable.com">Streamable</a> API</span>
+  <img src="./images/logo.png" alt="logo" style="width: auto; height: 100px"><br><br><span>NodeJS client to interact with the <a href="https://streamable.com">Streamable</a> API</span>
 </p>
 
 > [!IMPORTANT]
