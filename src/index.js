@@ -23,10 +23,6 @@ axios.interceptors.response.use(
  * non-email+password authentication methods aren't supported (yet).
  */
 class StreamableClient {
-    constructor() {}
-
-    #username;
-    #password;
     #loggedIn = false;
 
     #headers = {
@@ -46,14 +42,11 @@ class StreamableClient {
      * @returns {Promise<void>}
      */
     async login(usernameOrEmail, password) {
-        this.#username = usernameOrEmail;
-        this.#password = password;
-
         const response = await axios.post(
             endpoints.LOGIN,
             {
-                username: this.#username,
-                password: this.#password,
+                username: usernameOrEmail,
+                password: password,
             },
             { headers: this.#headers }
         );
