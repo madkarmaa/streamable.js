@@ -118,6 +118,10 @@ class StreamableClient {
         return exceeded || totalVideosSeconds > plan_max_length || totalVideosSize > plan_max_size;
     }
 
+    async #willReachUploadLimits(video_size) {
+        if (!(await this.isLoggedIn())) return console.error('You must be logged in to use this method!');
+    }
+
     /**
      * Upload a video from a given url
      * @param {URL | String} url The url of the video file to upload

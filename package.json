@@ -4,7 +4,8 @@
     "description": "Node.JS client to interact with the `streamable.com` API",
     "main": "./src/index.js",
     "scripts": {
-        "test": "node ./test.js"
+        "test": "node ./test.js",
+        "docs": "npx jsdoc2md ./src/index.js > ./docs/DOCS.md"
     },
     "keywords": [],
     "author": "madkarma",
@@ -13,5 +14,8 @@
         "axios": "^1.6.5",
         "convert-units": "^2.3.4",
         "get-video-duration": "^4.1.0"
+    },
+    "devDependencies": {
+        "jsdoc-to-markdown": "^7.1.0"
     }
 }

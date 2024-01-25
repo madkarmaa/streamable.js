@@ -19,4 +19,4 @@
 npm install github:madkarmaa/streamable.js
 ```
 
-## 📖 Docs coming soon...
+## [📖 Docs](./docs/DOCS.md)
