@@ -20,7 +20,7 @@ axios.interceptors.response.use(
 /**
  * Client to interact with the `streamable.com` API
  *
- * non-email+password authentication methods aren't supported (yet).
+ * Google/Facebook authentication methods aren't supported (yet).
  */
 class StreamableClient {
     #loggedIn = false;

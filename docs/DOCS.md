@@ -1,7 +1,7 @@
 <a name="StreamableClient"></a>
 
 ## StreamableClient
-Client to interact with the `streamable.com` APInon-email+password authentication methods aren't supported (yet).
+Client to interact with the `streamable.com` APIGoogle/Facebook authentication methods aren't supported (yet).
 
 **Kind**: global class  
 
