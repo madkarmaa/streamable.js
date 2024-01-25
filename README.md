@@ -3,7 +3,7 @@
   Streamable.js
 </h1>
 
-![nodejs](https://img.shields.io/static/v1?logo=nodedotjs&label=&message=NodeJS&color=43853D&logoColor=ffffff&style=flat-square) client to interact with the `streamable.com` API
+![nodejs](https://img.shields.io/static/v1?logo=nodedotjs&label=&message=NodeJS&color=43853D&logoColor=ffffff&style=flat-square) client to interact with the [Streamable](https://streamable.com) API
 
 > [!IMPORTANT]
 >
