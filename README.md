@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./images/logo.png" alt="logo" style="width: auto; height: 100px"><br><br><span>NodeJS client to interact with the <a href="https://streamable.com">Streamable</a> API</span>
+  <img src="https://raw.githubusercontent.com/madkarmaa/streamable.js/main/images/logo.png" alt="logo" style="width: auto; height: 100px"><br><br><span>NodeJS client to interact with the <a href="https://streamable.com">Streamable</a> API</span>
 </p>
 
 > [!IMPORTANT]
@@ -16,4 +16,4 @@
 npm install github:madkarmaa/streamable.js
 ```
 
-## [📖 Docs](./docs/DOCS.md)
+## [📖 Docs](https://github.com/madkarmaa/streamable.js/blob/main/docs/DOCS.md)
