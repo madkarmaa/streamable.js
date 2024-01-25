@@ -19,8 +19,6 @@ axios.interceptors.response.use(
 
 /**
  * Client to interact with the `streamable.com` API
- *
- * Google/Facebook authentication methods aren't supported (yet).
  */
 class StreamableClient {
     #loggedIn = false;
@@ -36,7 +34,9 @@ class StreamableClient {
     /**
      * Create a new session with the given credentials.
      *
-     * ===== MUST BE THE CALLED BEFORE ANYTHING ELSE =====
+     * **Google/Facebook authentication methods aren't supported** (yet).
+     *
+     * **MUST BE THE CALLED BEFORE ANYTHING ELSE**
      * @param {String} usernameOrEmail The username or email of the user
      * @param {String} password The password of the user
      * @returns {Promise<void>}

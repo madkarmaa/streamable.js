@@ -1,7 +1,7 @@
 <a name="StreamableClient"></a>
 
 ## StreamableClient
-Client to interact with the `streamable.com` APIGoogle/Facebook authentication methods aren't supported (yet).
+Client to interact with the `streamable.com` API
 
 **Kind**: global class  
 
@@ -17,7 +17,7 @@ Client to interact with the `streamable.com` APIGoogle/Facebook authentication
 <a name="StreamableClient+login"></a>
 
 ### streamableClient.login(usernameOrEmail, password) ⇒ <code>Promise.&lt;void&gt;</code>
-Create a new session with the given credentials.===== MUST BE THE CALLED BEFORE ANYTHING ELSE =====
+Create a new session with the given credentials.**Google/Facebook authentication methods aren't supported** (yet).**MUST BE THE CALLED BEFORE ANYTHING ELSE**
 
 **Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
 
