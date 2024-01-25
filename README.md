@@ -1,9 +1,6 @@
-<h1 align="center">
-  <!-- <img src="" alt="icon" style="width: 65px; height: 65px"><br> -->
-  Streamable.js
-</h1>
-
-![nodejs](https://img.shields.io/static/v1?logo=nodedotjs&label=&message=NodeJS&color=43853D&logoColor=ffffff&style=flat-square) client to interact with the [Streamable](https://streamable.com) API
+<p align="center">
+  <img src="./images/logo.png" alt="logo" style="width: auto; height: 85px"><br><br><img src="https://img.shields.io/static/v1?logo=nodedotjs&label=&message=NodeJS&color=43853D&logoColor=ffffff&style=flat-square" alt="nodejs">&nbsp;<span>client to interact with the <a href="https://streamable.com">Streamable</a> API</span>
+</p>
 
 > [!IMPORTANT]
 >
