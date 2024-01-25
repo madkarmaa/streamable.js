@@ -146,7 +146,7 @@ class StreamableClient {
 
     /**
      * Upload a video from a given url
-     * @param {(URL | String)} url The url of the video file to upload
+     * @param {URL | String} url The url of the video file to upload
      */
     async uploadVideoFromURL(url) {
         if (!(await this.isLoggedIn())) return console.error('You must be logged in to use this method!');
