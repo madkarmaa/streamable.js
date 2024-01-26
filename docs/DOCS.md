@@ -13,6 +13,8 @@ Client to interact with the `streamable.com` API
     * [.getVideosData()](#StreamableClient+getVideosData) ⇒ <code>Promise.&lt;Array.&lt;object&gt;&gt;</code>
     * [.hasReachedUploadLimits()](#StreamableClient+hasReachedUploadLimits) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.uploadVideoFromURL(url)](#StreamableClient+uploadVideoFromURL) ⇒ <code>Promise.&lt;object&gt;</code>
+    * [.deleteVideo(shortcode)](#StreamableClient+deleteVideo) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.deleteAllVideos()](#StreamableClient+deleteAllVideos) ⇒ <code>Promise.&lt;void&gt;</code>
 
 <a name="StreamableClient+login"></a>
 
@@ -71,3 +73,20 @@ Upload a video from a given url
 | --- | --- | --- |
 | url | <code>URL</code> \| <code>String</code> | The url of the video file to upload |
 
+<a name="StreamableClient+deleteVideo"></a>
+
+### streamableClient.deleteVideo(shortcode) ⇒ <code>Promise.&lt;void&gt;</code>
+Delete a video from the user's account
+
+**Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| shortcode | <code>String</code> | The shortcode of the video |
+
+<a name="StreamableClient+deleteAllVideos"></a>
+
+### streamableClient.deleteAllVideos() ⇒ <code>Promise.&lt;void&gt;</code>
+Delete all videos from the user's account
+
+**Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  

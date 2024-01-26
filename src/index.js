@@ -173,6 +173,27 @@ class StreamableClient {
             )
         ).data;
     }
+
+    /**
+     * Delete a video from the user's account
+     * @param {String} shortcode The shortcode of the video
+     * @returns {Promise<void>}
+     */
+    async deleteVideo(shortcode) {
+        try {
+            await axios.delete(endpoints.VIDEO(shortcode), { headers: this.#headers });
+        } catch (error) {
+            if (error.status === 404) return console.error(`Video with shortcode '${shortcode}' not found!`);
+        }
+    }
+
+    /**
+     * Delete all videos from the user's account
+     * @returns {Promise<void>}
+     */
+    async deleteAllVideos() {
+        await Promise.all((await this.getVideosData()).map((v) => this.deleteVideo(v.shortcode)));
+    }
 }
 
 module.exports = StreamableClient;

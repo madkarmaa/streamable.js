@@ -16,6 +16,9 @@ const endpoints = {
         return BASE_URL + '/uploads/shortcode?size=' + fileSize + '&version=unknown';
     },
     VIDEOS: BASE_URL + '/videos?sort=date_added',
+    VIDEO: function (shortcode) {
+        return BASE_URL + '/videos/' + shortcode;
+    },
 };
 
 module.exports = endpoints;
