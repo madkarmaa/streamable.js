@@ -16,4 +16,26 @@
 npm install github:madkarmaa/streamable.js
 ```
 
+## ❓ How to
+
+Once the package is installed, you can import the library:
+
+```js
+const StreamableClient = require('streamablejs');
+```
+
+### Basic usage
+
+```js
+const StreamableClient = require('streamablejs');
+
+// Create an instance of the Streamable client
+const client = new StreamableClient();
+
+// Start a new client session using your account credentials
+client.login('example@email.com', 'examplePassword').then(async () => {
+    // your code here...
+});
+```
+
 ## [📖 Docs](https://github.com/madkarmaa/streamable.js/blob/main/docs/DOCS.md)
