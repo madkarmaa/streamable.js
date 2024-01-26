@@ -35,6 +35,7 @@ const client = new StreamableClient();
 // Start a new client session using your account credentials
 client.login('example@email.com', 'examplePassword').then(async () => {
     // You're now logged in! Let's try it out!
+
     const { email } = await client.getUserData();
     console.log(email); // Example output: 'example@email.com'
 
