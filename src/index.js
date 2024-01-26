@@ -38,7 +38,7 @@ class StreamableClient {
     /**
      * Create a new session with the given credentials.
      *
-     * **Google/Facebook authentication methods aren't supported** (yet).
+     * **Google/Facebook authentication methods aren't supported** (yet)
      *
      * **MUST BE THE CALLED BEFORE ANYTHING ELSE**
      * @param {String} usernameOrEmail The username or email of the user
@@ -204,7 +204,9 @@ class StreamableClient {
     /**
      * Create a new account with the given credentials and **start a new session**.
      *
-     * **Google/Facebook authentication methods aren't supported** (yet).
+     * **Google/Facebook authentication methods aren't supported** (yet)
+     *
+     * **NOTE**: This method will replace the currently active session (if any)
      *
      * @param {String} usernameOrEmail The username or email of the user
      * @param {String} password The password of the user
