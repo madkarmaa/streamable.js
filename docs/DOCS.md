@@ -15,6 +15,7 @@ Client to interact with the `streamable.com` API
     * [.uploadVideoFromURL(url)](#StreamableClient+uploadVideoFromURL) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.deleteVideo(shortcode)](#StreamableClient+deleteVideo) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.deleteAllVideos()](#StreamableClient+deleteAllVideos) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.createAccount(usernameOrEmail, password)](#StreamableClient+createAccount) ⇒ <code>Promise.&lt;void&gt;</code>
 
 <a name="StreamableClient+login"></a>
 
@@ -94,3 +95,17 @@ Delete a video from the user's account
 Delete all videos from the user's account
 
 **Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
+<a name="StreamableClient+createAccount"></a>
+
+### streamableClient.createAccount(usernameOrEmail, password) ⇒ <code>Promise.&lt;void&gt;</code>
+Create a new account with the given credentials and **start a new session**.
+
+**Google/Facebook authentication methods aren't supported** (yet).
+
+**Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| usernameOrEmail | <code>String</code> | The username or email of the user |
+| password | <code>String</code> | The password of the user |
+
