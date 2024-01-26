@@ -65,7 +65,7 @@ class StreamableClient {
      * @returns {Promise<boolean>}
      */
     async isLoggedIn() {
-        return this.#loggedIn && !!(await this.getUserData())?.user_name;
+        return this.#loggedIn && !!(await axios.get(endpoints.ME, { headers: this.#headers })).data?.user_name;
     }
 
     /**
