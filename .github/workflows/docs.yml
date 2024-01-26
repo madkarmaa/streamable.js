@@ -16,7 +16,7 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v2
 
-            - name: Set up Node.js
+            - name: Set up NodeJS
               uses: actions/setup-node@v3
               with:
                   node-version: 20
@@ -24,7 +24,7 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Run npm script
+            - name: Run docs script
               run: npm run docs
 
             - name: Commit changes
