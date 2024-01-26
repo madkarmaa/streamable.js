@@ -2,6 +2,7 @@ const BASE_URL = 'https://api-f.streamable.com/api/v1';
 
 const endpoints = {
     LOGIN: 'https://ajax.streamable.com/check',
+    SIGNUP: 'https://ajax.streamable.com/users',
     ME: BASE_URL + '/me',
     SUBSCRIPTION_INFO: BASE_URL + '/me/subscription/info',
     LABELS: BASE_URL + '/labels',

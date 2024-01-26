@@ -23,12 +23,16 @@ axios.interceptors.response.use(
 class StreamableClient {
     #loggedIn = false;
 
-    #headers = {
+    _headers = {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
         credentials: 'include',
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Origin': 'https://streamable.com',
+    };
+
+    #headers = {
+        ...this._headers,
     };
 
     /**
@@ -42,6 +46,8 @@ class StreamableClient {
      * @returns {Promise<void>}
      */
     async login(usernameOrEmail, password) {
+        this.#loggedIn = false;
+
         const response = await axios.post(
             endpoints.LOGIN,
             {
@@ -193,6 +199,34 @@ class StreamableClient {
      */
     async deleteAllVideos() {
         await Promise.all((await this.getVideosData()).map((v) => this.deleteVideo(v.shortcode)));
+    }
+
+    /**
+     * Create a new account with the given credentials and **start a new session**.
+     *
+     * **Google/Facebook authentication methods aren't supported** (yet).
+     *
+     * @param {String} usernameOrEmail The username or email of the user
+     * @param {String} password The password of the user
+     * @returns {Promise<void>}
+     */
+    async createAccount(usernameOrEmail, password) {
+        this.#loggedIn = false;
+
+        const response = await axios.post(endpoints.SIGNUP, {
+            email: usernameOrEmail,
+            password: password,
+            username: usernameOrEmail,
+            verification_redirect: 'https://streamable.com?alert=verified',
+        });
+
+        const cookies = response.headers['set-cookie']
+            .map((cookie) => cookie.split(';')[0])
+            .filter((cookie) => cookie.split('=')[1])
+            .join('; ');
+
+        this.#headers = { ...this._headers, cookie: cookies };
+        this.#loggedIn = true;
     }
 }
 
