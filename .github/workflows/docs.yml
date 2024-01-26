@@ -4,6 +4,7 @@ on:
     push:
         paths:
             - 'src/index.js'
+    workflow_dispatch:
 
 jobs:
     run-npm-script:
