@@ -1,7 +1,7 @@
 {
     "name": "streamable.js",
     "version": "1.0.0",
-    "description": "Node.JS client to interact with the `streamable.com` API",
+    "description": "NodeJS client to interact with the `streamable.com` API",
     "main": "./src/index.js",
     "scripts": {
         "test": "node ./test.js",
