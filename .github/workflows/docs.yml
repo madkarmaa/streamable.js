@@ -2,8 +2,8 @@ name: Update documentation
 
 on:
     push:
-        branches:
-            - main
+        paths:
+            - 'src/index.js'
 
 jobs:
     run-npm-script:
