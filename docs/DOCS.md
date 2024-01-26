@@ -22,7 +22,7 @@ Client to interact with the `streamable.com` API
 ### streamableClient.login(usernameOrEmail, password) ⇒ <code>Promise.&lt;void&gt;</code>
 Create a new session with the given credentials.
 
-**Google/Facebook authentication methods aren't supported** (yet).
+**Google/Facebook authentication methods aren't supported** (yet)
 
 **MUST BE THE CALLED BEFORE ANYTHING ELSE**
 
@@ -100,7 +100,9 @@ Delete all videos from the user's account
 ### streamableClient.createAccount(usernameOrEmail, password) ⇒ <code>Promise.&lt;void&gt;</code>
 Create a new account with the given credentials and **start a new session**.
 
-**Google/Facebook authentication methods aren't supported** (yet).
+**Google/Facebook authentication methods aren't supported** (yet)
+
+**NOTE**: This method will replace the currently active session (if any)
 
 **Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
 
