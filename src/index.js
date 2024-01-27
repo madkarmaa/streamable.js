@@ -19,11 +19,13 @@ axios.interceptors.response.use(
 
 /**
  * Client to interact with the `streamable.com` API
+ *
+ * `.login()` or `.createAccount()` methods must be called before performing any other operations
  */
 class StreamableClient {
     #loggedIn = false;
 
-    _headers = {
+    _baseHeaders = {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
         credentials: 'include',
@@ -31,16 +33,13 @@ class StreamableClient {
         'Access-Control-Allow-Origin': 'https://streamable.com',
     };
 
-    #headers = {
-        ...this._headers,
-    };
+    #headers = {};
 
     /**
      * Create a new session with the given credentials.
      *
      * **Google/Facebook authentication methods aren't supported** (yet)
      *
-     * **MUST BE THE CALLED BEFORE ANYTHING ELSE**
      * @param {String} usernameOrEmail The username or email of the user
      * @param {String} password The password of the user
      * @returns {Promise<void>}
@@ -62,7 +61,7 @@ class StreamableClient {
             .filter((cookie) => cookie.split('=')[1])
             .join('; ');
 
-        this.#headers['cookie'] = cookies;
+        this.#headers = { ...this._baseHeaders, cookie: cookies };
         this.#loggedIn = true;
     }
 
@@ -227,7 +226,7 @@ class StreamableClient {
             .filter((cookie) => cookie.split('=')[1])
             .join('; ');
 
-        this.#headers = { ...this._headers, cookie: cookies };
+        this.#headers = { ...this._baseHeaders, cookie: cookies };
         this.#loggedIn = true;
     }
 }
