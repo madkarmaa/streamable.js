@@ -3,6 +3,8 @@
 ## StreamableClient
 Client to interact with the `streamable.com` API
 
+`.login()` or `.createAccount()` methods must be called before performing any other operations
+
 **Kind**: global class  
 
 * [StreamableClient](#StreamableClient)
@@ -23,8 +25,6 @@ Client to interact with the `streamable.com` API
 Create a new session with the given credentials.
 
 **Google/Facebook authentication methods aren't supported** (yet)
-
-**MUST BE THE CALLED BEFORE ANYTHING ELSE**
 
 **Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
 
