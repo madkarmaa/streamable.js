@@ -33,7 +33,7 @@ jobs:
                   git config --local user.email "action@github.com"
                   git config --local user.name "GitHub Action"
                   git add ./docs
-                  git commit -m "Update documentation"
+                  git commit -m "ci: update documentation"
 
             - name: Push changes
               uses: ad-m/github-push-action@master
