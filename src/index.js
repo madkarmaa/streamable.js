@@ -20,7 +20,7 @@ axios.interceptors.response.use(
 /**
  * Client to interact with the `streamable.com` API
  *
- * `.login()` or `.createAccount()` methods must be called before performing any other operations
+ * `.login()` or `.createAccount()` methods **must** be called before performing any other operations!
  */
 class StreamableClient {
     #loggedIn = false;
