@@ -34,6 +34,9 @@ const Email = {
     },
 
     generate: function () {
+        const emails = ['yahoo.com', 'gmail.com', 'hotmail.com', 'live.com', 'outlook.com'];
+        const randomEmail = emails[Math.floor(Math.random() * emails.length)];
+
         return (
             Array.apply(null, { length: 16 })
                 .map(function () {
@@ -43,7 +46,9 @@ const Email = {
                         if (this._pattern.test(result)) return result;
                     }
                 }, this)
-                .join('') + '@email.com'
+                .join('') +
+            '@' +
+            randomEmail
         );
     },
 };
