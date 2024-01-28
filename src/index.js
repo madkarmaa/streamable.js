@@ -101,6 +101,16 @@ class StreamableClient {
     }
 
     /**
+     * Get a video's data
+     *
+     * @param {String} shortcode The shortcode of the video
+     * @returns {Promise<object>} The data of the video
+     */
+    async getVideoData(shortcode) {
+        return (await axios.get(endpoints.VIDEO(shortcode), { headers: this.#headers })).data;
+    }
+
+    /**
      * Check if the user has reached the current plan's upload limits
      * @returns {Promise<boolean>}
      */
