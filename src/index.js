@@ -95,7 +95,7 @@ class StreamableClient {
      * Get the current user's videos data
      * @returns {Promise<object[]>} The current user's videos data
      */
-    async getVideosData() {
+    async getAllVideosData() {
         if (!(await this.isLoggedIn())) return console.error('You must be logged in to use this method!');
         return Array.from((await axios.get(endpoints.VIDEOS, { headers: this.#headers })).data.videos);
     }
