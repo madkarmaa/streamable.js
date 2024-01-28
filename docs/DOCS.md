@@ -12,12 +12,14 @@ Client to interact with the `streamable.com` API
     * [.isLoggedIn()](#StreamableClient+isLoggedIn) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.getUserData()](#StreamableClient+getUserData) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.getPlanData()](#StreamableClient+getPlanData) ⇒ <code>Promise.&lt;object&gt;</code>
-    * [.getVideosData()](#StreamableClient+getVideosData) ⇒ <code>Promise.&lt;Array.&lt;object&gt;&gt;</code>
+    * [.getAllVideosData()](#StreamableClient+getAllVideosData) ⇒ <code>Promise.&lt;Array.&lt;object&gt;&gt;</code>
+    * [.getVideoData(shortcode)](#StreamableClient+getVideoData) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.hasReachedUploadLimits()](#StreamableClient+hasReachedUploadLimits) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.uploadVideoFromURL(url)](#StreamableClient+uploadVideoFromURL) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.deleteVideo(shortcode)](#StreamableClient+deleteVideo) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.deleteAllVideos()](#StreamableClient+deleteAllVideos) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.createAccount(usernameOrEmail, password)](#StreamableClient+createAccount) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.renameVideoTitle(shortcode, newTitle)](#StreamableClient+renameVideoTitle) ⇒ <code>Promise.&lt;void&gt;</code>
 
 <a name="StreamableClient+login"></a>
 
@@ -53,13 +55,25 @@ Get the current user's plan's data
 
 **Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
 **Returns**: <code>Promise.&lt;object&gt;</code> - The user's current plan's data  
-<a name="StreamableClient+getVideosData"></a>
+<a name="StreamableClient+getAllVideosData"></a>
 
-### streamableClient.getVideosData() ⇒ <code>Promise.&lt;Array.&lt;object&gt;&gt;</code>
+### streamableClient.getAllVideosData() ⇒ <code>Promise.&lt;Array.&lt;object&gt;&gt;</code>
 Get the current user's videos data
 
 **Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
 **Returns**: <code>Promise.&lt;Array.&lt;object&gt;&gt;</code> - The current user's videos data  
+<a name="StreamableClient+getVideoData"></a>
+
+### streamableClient.getVideoData(shortcode) ⇒ <code>Promise.&lt;object&gt;</code>
+Get a video's data
+
+**Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
+**Returns**: <code>Promise.&lt;object&gt;</code> - The data of the video  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| shortcode | <code>String</code> | The shortcode of the video |
+
 <a name="StreamableClient+hasReachedUploadLimits"></a>
 
 ### streamableClient.hasReachedUploadLimits() ⇒ <code>Promise.&lt;boolean&gt;</code>
@@ -110,4 +124,16 @@ Create a new account with the given credentials and **start a new session**.
 | --- | --- | --- |
 | usernameOrEmail | <code>String</code> | The username or email of the user |
 | password | <code>String</code> | The password of the user |
+
+<a name="StreamableClient+renameVideoTitle"></a>
+
+### streamableClient.renameVideoTitle(shortcode, newTitle) ⇒ <code>Promise.&lt;void&gt;</code>
+Rename a video's title
+
+**Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| shortcode | <code>String</code> | The shortcode of the video |
+| newTitle | <code>String</code> | The new title of the video |
 
