@@ -13,6 +13,7 @@ const endpoints = {
     INIT_UPLOAD_VIDEO: (fileSize) => BASE_URL + '/uploads/shortcode?size=' + fileSize + '&version=unknown',
     VIDEOS: BASE_URL + '/videos?sort=date_added',
     VIDEO: (shortcode) => BASE_URL + '/videos/' + shortcode,
+    RENAME_VIDEO: (shortcode) => BASE_URL + '/videos/' + shortcode + '/rename',
 };
 
 module.exports = endpoints;

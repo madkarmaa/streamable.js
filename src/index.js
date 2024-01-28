@@ -225,6 +225,17 @@ class StreamableClient {
         this.#headers = { ...this._baseHeaders, cookie: cookies };
         this.#loggedIn = true;
     }
+
+    /**
+     * Rename a video's title
+     *
+     * @param {String} shortcode The shortcode of the video
+     * @param {String} newTitle The new title of the video
+     * @returns {Promise<void>}
+     */
+    async renameVideoTitle(shortcode, newTitle) {
+        await axios.post(endpoints.RENAME_VIDEO(shortcode), { title: newTitle }, { headers: this.#headers });
+    }
 }
 
 module.exports = StreamableClient;
