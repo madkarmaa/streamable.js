@@ -107,11 +107,7 @@ class StreamableClient {
     async hasReachedUploadLimits() {
         if (!(await this.isLoggedIn())) return console.error('You must be logged in to use this method!');
 
-        const {
-            limits: {
-                storage: { exceeded },
-            },
-        } = await this.getPlanData();
+        const { limits: { storage: { exceeded } } } = await this.getPlanData(); // prettier-ignore
 
         const { plan_max_length, plan_max_size } = await this.getUserData();
 

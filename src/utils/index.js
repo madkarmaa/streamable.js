@@ -19,8 +19,7 @@ const Password = {
                     result = String.fromCharCode(this._getRandomByte());
                     if (this._pattern.test(result)) return result;
                 }
-            }, this)
-            .join('');
+            }, this).join(''); // prettier-ignore
     },
 };
 
@@ -45,10 +44,7 @@ const Email = {
                         result = String.fromCharCode(this._getRandomByte());
                         if (this._pattern.test(result)) return result;
                     }
-                }, this)
-                .join('') +
-            '@' +
-            randomEmail
+                }, this).join('') + '@' + randomEmail // prettier-ignore
         );
     },
 };
