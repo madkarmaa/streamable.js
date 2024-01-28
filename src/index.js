@@ -121,7 +121,7 @@ class StreamableClient {
 
         const { plan_max_length, plan_max_size } = await this.getUserData();
 
-        const videosData = await this.getVideosData();
+        const videosData = await this.getAllVideosData();
 
         const totalVideosSeconds = videosData.reduce((total, v) => total + v.duration, 0);
         const totalVideosSize = videosData.reduce((total, v) => total + convert(v.size).from('b').to('Gb'), 0);
@@ -203,7 +203,7 @@ class StreamableClient {
      * @returns {Promise<void>}
      */
     async deleteAllVideos() {
-        await Promise.all((await this.getVideosData()).map((v) => this.deleteVideo(v.shortcode)));
+        await Promise.all((await this.getAllVideosData()).map((v) => this.deleteVideo(v.shortcode)));
     }
 
     /**
