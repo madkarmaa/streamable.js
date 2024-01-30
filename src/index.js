@@ -2,7 +2,12 @@ const axios = require('axios').default;
 const { URL } = require('node:url');
 const { getVideoDurationInSeconds } = require('get-video-duration');
 const convert = require('convert-units');
+const fs = require('node:fs');
+const path = require('node:path');
+const { lookup } = require('mime-types');
 const endpoints = require('./constants/endpoints.js');
+const { getSha256 } = require('./utils');
+const S3 = require('aws-sdk/clients/s3.js');
 
 axios.interceptors.response.use(
     function (response) {
@@ -166,7 +171,7 @@ class StreamableClient {
 
         return (
             await axios.post(
-                endpoints.TRANSCODE_FROM_URL(uploadedVideoData.shortcode),
+                endpoints.TRANSCODE_VIDEO(uploadedVideoData.shortcode),
                 {
                     extractor: extractedVideoData.extractor,
                     headers: extractedVideoData.headers,
@@ -245,6 +250,88 @@ class StreamableClient {
      */
     async renameVideoTitle(shortcode, newTitle) {
         await axios.post(endpoints.RENAME_VIDEO(shortcode), { title: newTitle }, { headers: this.#headers });
+    }
+
+    /**
+     * Upload a local video
+     * @param {String} videoPath The path to the video file
+     * @returns {Promise<object>} The uploaded video's data
+     */
+    async uploadLocalVideo(videoPath) {
+        videoPath = path.resolve(videoPath);
+
+        if (!lookup(videoPath).startsWith('video')) return console.error('Please provide a video file!');
+
+        const { size: videoSize } = fs.statSync(videoPath);
+
+        const uploadMetaData = (await axios.get(endpoints.INIT_UPLOAD_LOCAL_VIDEO(videoSize), { headers: this.#headers })).data; // prettier-ignore
+
+        if (!uploadMetaData?.fields) return console.error('Cannot retrieve server upload headers!');
+
+        await axios.post(
+            endpoints.INIT_VIDEO(uploadMetaData.shortcode),
+            {
+                original_name: path.basename(videoPath),
+                original_size: videoSize,
+                title: path.parse(videoPath).name,
+                upload_source: 'web',
+            },
+            { headers: this.#headers }
+        );
+
+        function uploadToBucket() {
+            return new Promise((resolve, reject) => {
+                const clockSkew = uploadMetaData.time ? uploadMetaData.time * 1000 - new Date().getTime() : 0;
+
+                const bucket = new S3({
+                    apiVersion: '2006-03-01',
+                    region: 'us-east-1',
+                    credentials: uploadMetaData['credentials'],
+                    useAccelerateEndpoint: uploadMetaData.accelerated,
+                    maxRetries: 15,
+                    systemClockOffset: clockSkew,
+                });
+
+                const upload = bucket.upload(
+                    {
+                        Key: uploadMetaData['key'],
+                        Body: fs.createReadStream(videoPath),
+                        Bucket: uploadMetaData['bucket'],
+                        ACL: 'public-read',
+                    },
+                    {
+                        queueSize: 3,
+                    },
+                    (err, data) => {
+                        if (err) reject(err);
+                        if (data) resolve(data);
+                    }
+                );
+            });
+        }
+
+        let awsUploadData;
+        try {
+            awsUploadData = await uploadToBucket();
+        } catch (error) {
+            return console.error(error);
+        }
+
+        if (!awsUploadData) return console.error('Could not upload to AWS servers!');
+
+        await axios.post(
+            endpoints.TRACK_UPLOAD(uploadMetaData.shortcode),
+            { event: 'complete' },
+            { headers: this.#headers }
+        );
+
+        return (
+            await axios.post(
+                endpoints.TRANSCODE_VIDEO(uploadMetaData.shortcode),
+                { ...uploadMetaData.transcoder_options }, // prettier-ignore
+                { headers: this.#headers }
+            )
+        ).data;
     }
 }
 

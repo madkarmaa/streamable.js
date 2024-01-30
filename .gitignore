@@ -3,3 +3,5 @@ package-lock.json
 /*test*
 /*temp*
 dist/
+/*.mp4
+website-resources/

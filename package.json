@@ -12,9 +12,11 @@
     "author": "madkarma",
     "license": "MIT",
     "dependencies": {
+        "aws-sdk": "^2.1546.0",
         "axios": "^1.6.5",
         "convert-units": "^2.3.4",
-        "get-video-duration": "^4.1.0"
+        "get-video-duration": "^4.1.0",
+        "mime-types": "^2.1.35"
     },
     "devDependencies": {
         "jsdoc-to-markdown": "^7.1.0"
