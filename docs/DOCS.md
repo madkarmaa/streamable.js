@@ -20,6 +20,7 @@ Client to interact with the `streamable.com` API
     * [.deleteAllVideos()](#StreamableClient+deleteAllVideos) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.createAccount(usernameOrEmail, password)](#StreamableClient+createAccount) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.renameVideoTitle(shortcode, newTitle)](#StreamableClient+renameVideoTitle) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.uploadLocalVideo(videoPath)](#StreamableClient+uploadLocalVideo) ⇒ <code>Promise.&lt;object&gt;</code>
 
 <a name="StreamableClient+login"></a>
 
@@ -136,4 +137,16 @@ Rename a video's title
 | --- | --- | --- |
 | shortcode | <code>String</code> | The shortcode of the video |
 | newTitle | <code>String</code> | The new title of the video |
+
+<a name="StreamableClient+uploadLocalVideo"></a>
+
+### streamableClient.uploadLocalVideo(videoPath) ⇒ <code>Promise.&lt;object&gt;</code>
+Upload a local video
+
+**Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
+**Returns**: <code>Promise.&lt;object&gt;</code> - The uploaded video's data  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| videoPath | <code>String</code> | The path to the video file |
 
