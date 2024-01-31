@@ -114,25 +114,6 @@ class StreamableClient {
         return (await axios.get(endpoints.VIDEO(shortcode), { headers: this.#headers })).data;
     }
 
-    /**
-     * Check if the user has reached the current plan's upload limits
-     * @returns {Promise<boolean>}
-     */
-    async hasReachedUploadLimits() {
-        if (!(await this.isLoggedIn())) return console.error('You must be logged in to use this method!');
-
-        const { limits: { storage: { exceeded } } } = await this.getPlanData(); // prettier-ignore
-
-        const { plan_max_length, plan_max_size } = await this.getUserData();
-
-        const videosData = await this.getAllVideosData();
-
-        const totalVideosSeconds = videosData.reduce((total, v) => total + v.duration, 0);
-        const totalVideosSize = videosData.reduce((total, v) => total + convert(v.size).from('b').to('Gb'), 0);
-
-        return exceeded || totalVideosSeconds > plan_max_length || totalVideosSize > plan_max_size;
-    }
-
     async #willReachUploadLimits(video_size) {
         if (!(await this.isLoggedIn())) return console.error('You must be logged in to use this method!');
     }
