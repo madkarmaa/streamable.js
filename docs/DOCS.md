@@ -14,7 +14,6 @@ Client to interact with the `streamable.com` API
     * [.getPlanData()](#StreamableClient+getPlanData) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.getAllVideosData()](#StreamableClient+getAllVideosData) ⇒ <code>Promise.&lt;Array.&lt;object&gt;&gt;</code>
     * [.getVideoData(shortcode)](#StreamableClient+getVideoData) ⇒ <code>Promise.&lt;object&gt;</code>
-    * [.hasReachedUploadLimits()](#StreamableClient+hasReachedUploadLimits) ⇒ <code>Promise.&lt;boolean&gt;</code>
     * [.uploadVideoFromURL(url)](#StreamableClient+uploadVideoFromURL) ⇒ <code>Promise.&lt;object&gt;</code>
     * [.deleteVideo(shortcode)](#StreamableClient+deleteVideo) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.deleteAllVideos()](#StreamableClient+deleteAllVideos) ⇒ <code>Promise.&lt;void&gt;</code>
@@ -75,12 +74,6 @@ Get a video's data
 | --- | --- | --- |
 | shortcode | <code>String</code> | The shortcode of the video |
 
-<a name="StreamableClient+hasReachedUploadLimits"></a>
-
-### streamableClient.hasReachedUploadLimits() ⇒ <code>Promise.&lt;boolean&gt;</code>
-Check if the user has reached the current plan's upload limits
-
-**Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
 <a name="StreamableClient+uploadVideoFromURL"></a>
 
 ### streamableClient.uploadVideoFromURL(url) ⇒ <code>Promise.&lt;object&gt;</code>
