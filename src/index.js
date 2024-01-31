@@ -6,7 +6,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { lookup } = require('mime-types');
 const endpoints = require('./constants/endpoints.js');
-const { getSha256 } = require('./utils');
 const S3 = require('aws-sdk/clients/s3.js');
 
 axios.interceptors.response.use(
