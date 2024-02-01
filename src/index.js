@@ -266,7 +266,7 @@ class StreamableClient {
                 const bucket = new S3({
                     apiVersion: '2006-03-01',
                     region: 'us-east-1',
-                    credentials: uploadMetaData['credentials'],
+                    credentials: uploadMetaData.credentials,
                     useAccelerateEndpoint: uploadMetaData.accelerated,
                     maxRetries: 15,
                     systemClockOffset: clockSkew,
@@ -274,14 +274,12 @@ class StreamableClient {
 
                 const upload = bucket.upload(
                     {
-                        Key: uploadMetaData['key'],
+                        Key: uploadMetaData.key,
                         Body: fs.createReadStream(videoPath),
-                        Bucket: uploadMetaData['bucket'],
+                        Bucket: uploadMetaData.bucket,
                         ACL: 'public-read',
                     },
-                    {
-                        queueSize: 3,
-                    },
+                    { queueSize: 3 }, // prettier-ignore
                     (err, data) => {
                         if (err) reject(err);
                         if (data) resolve(data);
