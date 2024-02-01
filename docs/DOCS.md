@@ -20,6 +20,7 @@ Client to interact with the `streamable.com` API
     * [.createAccount(usernameOrEmail, password)](#StreamableClient+createAccount) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.renameVideoTitle(shortcode, newTitle)](#StreamableClient+renameVideoTitle) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.uploadLocalVideo(videoPath)](#StreamableClient+uploadLocalVideo) ⇒ <code>Promise.&lt;object&gt;</code>
+    * [.isVideoSuitableForUpload(videoPath)](#StreamableClient+isVideoSuitableForUpload) ⇒ <code>Promise.&lt;{reason: String, isValid: boolean}&gt;</code>
 
 <a name="StreamableClient+login"></a>
 
@@ -138,6 +139,17 @@ Upload a local video
 
 **Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
 **Returns**: <code>Promise.&lt;object&gt;</code> - The uploaded video's data  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| videoPath | <code>String</code> | The path to the video file |
+
+<a name="StreamableClient+isVideoSuitableForUpload"></a>
+
+### streamableClient.isVideoSuitableForUpload(videoPath) ⇒ <code>Promise.&lt;{reason: String, isValid: boolean}&gt;</code>
+Check if a local file is suitable for upload based off the current plan's limitations
+
+**Kind**: instance method of [<code>StreamableClient</code>](#StreamableClient)  
 
 | Param | Type | Description |
 | --- | --- | --- |
