@@ -25,6 +25,8 @@ axios.interceptors.response.use(
  * Client to interact with the `streamable.com` API
  *
  * `.login()` or `.createAccount()` methods **must** be called before performing any other operations!
+ *
+ * @class
  */
 class StreamableClient {
     #loggedIn = false;
@@ -71,6 +73,7 @@ class StreamableClient {
 
     /**
      * Check if the user is logged in
+     *
      * @returns {Promise<boolean>}
      */
     async isLoggedIn() {
@@ -79,6 +82,7 @@ class StreamableClient {
 
     /**
      * Get the currently logged in user's data
+     *
      * @returns {Promise<object>} The user's data
      */
     async getUserData() {
@@ -88,6 +92,7 @@ class StreamableClient {
 
     /**
      * Get the current user's plan's data
+     *
      * @returns {Promise<object>} The user's current plan's data
      */
     async getPlanData() {
@@ -97,6 +102,7 @@ class StreamableClient {
 
     /**
      * Get the current user's videos data
+     *
      * @returns {Promise<object[]>} The current user's videos data
      */
     async getAllVideosData() {
@@ -114,12 +120,9 @@ class StreamableClient {
         return (await axios.get(endpoints.VIDEO(shortcode), { headers: this.#headers })).data;
     }
 
-    async #willReachUploadLimits(video_size) {
-        if (!(await this.isLoggedIn())) return console.error('You must be logged in to use this method!');
-    }
-
     /**
      * Upload a video from a given url
+     *
      * @param {URL | String} url The url of the video file to upload
      * @returns {Promise<object>} The uploaded video's data
      */
@@ -172,6 +175,7 @@ class StreamableClient {
 
     /**
      * Delete a video from the user's account
+     *
      * @param {String} shortcode The shortcode of the video
      * @returns {Promise<void>}
      */
@@ -185,6 +189,7 @@ class StreamableClient {
 
     /**
      * Delete all videos from the user's account
+     *
      * @returns {Promise<void>}
      */
     async deleteAllVideos() {
@@ -234,13 +239,15 @@ class StreamableClient {
 
     /**
      * Upload a local video
+     *
      * @param {String} videoPath The path to the video file
      * @returns {Promise<object>} The uploaded video's data
      */
     async uploadLocalVideo(videoPath) {
         videoPath = path.resolve(videoPath);
+        const isVideoValid = await this.isVideoSuitableForUpload(videoPath);
 
-        if (!lookup(videoPath).startsWith('video')) return console.error('Please provide a video file!');
+        if (!isVideoValid.isValid) return console.error(isVideoValid.reason);
 
         const { size: videoSize } = fs.statSync(videoPath);
 
@@ -310,6 +317,28 @@ class StreamableClient {
                 { headers: this.#headers }
             )
         ).data;
+    }
+
+    /**
+     * Check if a local file is suitable for upload based off the current plan's limitations
+     *
+     * @param {String} videoPath The path to the video file
+     * @return {Promise<{ reason: String, isValid: boolean }>}
+     */
+    async isVideoSuitableForUpload(videoPath) {
+        videoPath = path.resolve(videoPath);
+
+        if (!lookup(videoPath).startsWith('video')) return { reason: 'Not a video', isValid: false };
+
+        const { size: videoSize } = fs.statSync(videoPath);
+        const { plan_max_length, plan_max_size } = await this.getUserData();
+
+        if (videoSize > convert(plan_max_size).from('Gb').to('b')) return { reason: 'Video too large', isValid: false };
+
+        if ((await getVideoDurationInSeconds(videoPath)) > plan_max_length)
+            return { reason: 'Video too long', isValid: false };
+
+        return { reason: '', isValid: true };
     }
 }
 
