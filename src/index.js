@@ -310,13 +310,13 @@ class StreamableClient {
             { headers: this.#headers }
         );
 
-        return (
-            await axios.post(
-                endpoints.TRANSCODE_VIDEO(uploadMetaData.shortcode),
-                { ...uploadMetaData.transcoder_options }, // prettier-ignore
-                { headers: this.#headers }
-            )
-        ).data;
+        const res = await axios.post(
+            endpoints.TRANSCODE_VIDEO(uploadMetaData.shortcode),
+            { ...uploadMetaData.transcoder_options }, // prettier-ignore
+            { headers: this.#headers }
+        );
+
+        return res?.data;
     }
 
     /**
