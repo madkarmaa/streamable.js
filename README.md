@@ -13,7 +13,7 @@
 ## ⚙️ Installation
 
 ```
-npm install github:madkarmaa/streamable.js
+npm install @madkarma/streamable-js
 ```
 
 ## ❓ How to
@@ -21,13 +21,13 @@ npm install github:madkarmaa/streamable.js
 Once the package is installed, you can import the library:
 
 ```js
-const StreamableClient = require('streamablejs');
+const StreamableClient = require('@madkarma/streamable-js');
 ```
 
 ### Basic usage
 
 ```js
-const StreamableClient = require('streamablejs');
+const StreamableClient = require('@madkarma/streamable-js');
 
 // Create an instance of the Streamable client
 const client = new StreamableClient();
