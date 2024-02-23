@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "description": "NodeJS client to interact with the `streamable.com` API",
     "main": "./src/index.js",
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "test": "node ./test.js",
         "docs": "npx jsdoc2md ./src/index.js > ./docs/DOCS.md"
